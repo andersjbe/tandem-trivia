@@ -1,6 +1,6 @@
 # Tandem Trivia
 
-This is a React app I made as a coding challenge for my application to Tandem
+A React app I made as a coding challenge for my application to Tandem
 
 ## Setup 
 
@@ -30,6 +30,8 @@ This is a React app I made as a coding challenge for my application to Tandem
 This app was mainly made as a demonstration of my React and Javascript skills, and as such, doesn't include any sort of backend. At a certain point, the users data will become too large for localstorage to hold. 
 
 Right now, it is possible to go a round without answering any questions at all, this is generally fine, but ideally a user would not be able to progress to the next question without answering
+
+I wanted to integrate Jest to write unit tests, but I haven't written tests for React components before, so I made the decision to forgo it and use the debugger devtool instead.
 
 ## Possible future features
 
