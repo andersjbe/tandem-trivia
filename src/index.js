@@ -4,29 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Grommet } from 'grommet';
+import { BrowserRouter } from 'react-router-dom';
 
-let userData = {}
-if (!localStorage.getItem('andersjbe/trivia')) {
-  userData = {
-    users: {
-      'haXX0r': 1000000,
-      'smart_guy': 1000,
-      'not-a-bot': 900,
-      'actually-a-bot': 300,
-      'struggling': 100
-    },
-    currentUser: null
-  }
-  localStorage.setItem(JSON.stringify(userData))
-} else {
-  userData = JSON.parse(localStorage.getItem('andersjbe/trivia'))
-}
+
 
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
     <Grommet full>
-      <App {...userData} />
+      <App />
     </Grommet>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

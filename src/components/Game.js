@@ -1,8 +1,18 @@
-import { Box, Meter } from 'grommet'
-import React, { useState } from 'react'
+import { Box } from 'grommet'
+import React, { useEffect, useState } from 'react'
 import questionData from '../data/Apprentice_TandemFor400_Data.json'
+import ResultsFrame from './ResultsFrame'
+import Question from './Question'
 
-export default function Game() {
+/**
+ * Renders a component that renders frames of questions, 
+ * along with an intro and results. 
+ * After it's mounted, the component grabs the question 
+ * data located in /data. It will then parse and prepare 
+ * the JSON data to be consumed by the Question 
+ * components
+ */
+export default function Game({ users, currentUser, setUsers }) {
     const [score, setScore] = useState(0)
     const [frames, setFrames] = useState([])
     const [currentFrame, setCurrentFrame] = useState(0)
@@ -12,16 +22,38 @@ export default function Game() {
         const questions = questionData
             .sort(() => 0.5 - Math.random())
             .slice(0, 10)
-            .map(question => {
-                answers = [...question.incorrect, question.correct].sort(() => 0.5 - Math.random())
-                return (<Question answers={answers} correct={correct} question={question} />)
+            .map((question, i) => {
+                const answers = [...question.incorrect, question.correct].sort(() => 0.5 - Math.random())
+                return (
+                    <Question
+                        answers={answers}
+                        correct={question.correct} 
+                        question={question.question}
+                        position={i}
+                        setCurrentFrame={setCurrentFrame}
+                        score={score}
+                        setScore={setScore}
+                    />)
             })
 
         setFrames([
-            <IntroFrame />, 
-            ...questions, 
-            ResultsFrame
+            ...questions,
+            <ResultsFrame
+                score={score}
+                resetGame={resetGame}
+                setUsers={setUsers}
+                users={users}
+                currentUser={currentUser}
+            />
         ])
+
+        console.log(frames)
+    }
+
+    function resetGame() {
+        setScore(0)
+        setCurrentFrame(0)
+        loadQuestions()
     }
 
     useEffect(() => {
@@ -35,16 +67,8 @@ export default function Game() {
             margin='small'
             padding='small'
         >
-            
-
+            {frames[currentFrame]}
         </Box>
     )
 }
 
-function IntroFrame() {
-
-}
-
-function ResultsFrame() {
-
-}
