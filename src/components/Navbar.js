@@ -1,21 +1,33 @@
-import { Anchor, Heading, Header, Nav } from 'grommet'
+import { Anchor, Box, Heading, Header, Nav, DropButton, Text, Footer, Button } from 'grommet'
 import { Gamepad, Home } from 'grommet-icons'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Navbar(props) {
+    const userScore = props.users[props.user] ? props.users[props.user] : 0
+
+    const history = useHistory()
+
+    const logOut = () => {
+        props.setUser('')
+        window.localStorage.setItem('andersjbe/trivia', JSON.stringify({ ...props.users, currentUser: '' }))
+        history.push('/')
+    }
+
     return (
-        <Header>
-            <Nav alignSelf='start'>
+        <Header direction='row' pad='xsmall' background='#380925'>
+            <Nav alignSelf='center' direction='row'>
                 <Link to='/'>
-                  <Anchor 
-                    href='#'
-                    label='Home'
-                    icon={<Home />}
-                  />  
+                    <Anchor
+                        color='#edae9f'
+                        href='#'
+                        label='Home'
+                        icon={<Home />}
+                    />
                 </Link>
                 <Link to='/play'>
-                    <Anchor 
+                    <Anchor
+                        color='#edae9f'
                         href='#'
                         label='Play'
                         icon={<Gamepad />}
@@ -23,9 +35,28 @@ export default function Navbar(props) {
                 </Link>
             </Nav>
 
-            <Nav>
-                <Heading level={4}>{props.user}</Heading>
-            </Nav>
+            <Heading level={3} alignSelf='center' textAlign='sta' color='#edae9f' margin='none'>Tandem Trivia</Heading>
+
+            {
+                props.user ?
+                    <DropButton
+                        color='#ff694e'
+                        alignSelf='center'
+                        label={<Text color='#edae9f'>{props.user}</Text>}
+                        dropAlign={{ top: 'bottom', right: 'right' }}
+                        dropContent={<Box pad='xsmall'>
+                            <Heading margin='xsmall' level={6}>High Score:</Heading>
+                            <Text>{userScore}</Text>
+                            <Footer>
+                                <Button
+                                    label='Log Out'
+                                    onClick={() => logOut()}
+                                />
+                            </Footer>
+                        </Box>}
+                    />
+                    : <Box />
+            }
         </Header>
     )
 }

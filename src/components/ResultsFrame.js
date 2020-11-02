@@ -50,6 +50,7 @@ export default function ResultsFrame({ resetGame, users, setUsers, currentUser }
                 data={[...leaderboard]}
             />
             <Button 
+                color='#ff694e'
                 label='Go Again?'
                 onClick={() => resetGame()}
             />

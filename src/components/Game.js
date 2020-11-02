@@ -5,6 +5,7 @@ import ResultsFrame from './ResultsFrame'
 import Question from './Question'
 import { useDispatch } from 'react-redux'
 import { setScore } from '../store/game'
+import { Redirect } from 'react-router-dom'
 
 /**
  * Renders a component that renders frames of questions, 
@@ -44,8 +45,6 @@ export default function Game({ users, currentUser, setUsers }) {
                 currentUser={currentUser}
             />
         ])
-
-        console.log(frames)
     }
 
     const dispatch = useDispatch()
@@ -56,8 +55,13 @@ export default function Game({ users, currentUser, setUsers }) {
     }
 
     useEffect(() => {
+        dispatch(setScore(0))
         loadQuestions()
     }, [])
+
+    if (!currentUser) {
+        return <Redirect to='/' />
+    }
 
     return (
         <Box

@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { Grommet } from 'grommet';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store/configureStore'
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 const store = configureStore()
@@ -15,7 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Grommet full>
+        <Grommet  background='#fffdfc'>
           <App />
         </Grommet>
       </BrowserRouter>

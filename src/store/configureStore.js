@@ -1,5 +1,5 @@
 import {
-    createStore, applyMiddleware, combineReducers, compose
+    createStore, combineReducers, compose
 } from 'redux'
 import game from './game'
 

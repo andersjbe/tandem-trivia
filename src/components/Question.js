@@ -18,13 +18,11 @@ export default function Question(props) {
     const submitAnswer = () => {
         console.log('submitting')
         if (answer === correct) {
-            console.log('CORRECT')
             dispatch(setScore(score + 100))
 
         }
 
         setAnswered(true)
-        console.log(score)
     }
 
     return (
@@ -36,8 +34,10 @@ export default function Question(props) {
                     answers.map((answer, i) => (
                         <Box
                             background={answer === correct ? '#1c1' : '#fff'}
+                            pad='xsmall'
+                            round='small'
                         >
-                            <Text key={1000 + i}>{answer}</Text>
+                            <Text textAlign='start' key={1000 + i}>{answer}</Text>
                         </Box>
                     ))
                     :
@@ -52,6 +52,8 @@ export default function Question(props) {
             {
                 answered ?
                     <Button
+                        color='#ff694e'
+                        margin='small'
                         label='Next'
                         onClick={() => {
                             setCurrentFrame(position + 1)
@@ -60,6 +62,8 @@ export default function Question(props) {
                         }}
                     /> :
                     <Button
+                        color='#ff694e'
+                        margin='small'
                         label='Submit'
                         onClick={() => submitAnswer()}
                     />
