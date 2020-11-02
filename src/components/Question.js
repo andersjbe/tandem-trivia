@@ -1,24 +1,30 @@
 import { Box, Button, RadioButtonGroup, Heading, Text } from 'grommet'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setScore } from '../store/game'
 
 export default function Question(props) {
+    const { score } = useSelector(state => state.game)
+    const dispatch = useDispatch()
     const { question,
         answers,
         correct,
         position,
-        setCurrentFrame,
-        score,
-        setScore } = props
+        setCurrentFrame } = props
 
     const [answered, setAnswered] = useState(false)
     const [answer, setAnswer] = useState('')
 
     const submitAnswer = () => {
+        console.log('submitting')
         if (answer === correct) {
-            setScore(score + 100)
+            console.log('CORRECT')
+            dispatch(setScore(score + 100))
+
         }
 
         setAnswered(true)
+        console.log(score)
     }
 
     return (

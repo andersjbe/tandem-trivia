@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import questionData from '../data/Apprentice_TandemFor400_Data.json'
 import ResultsFrame from './ResultsFrame'
 import Question from './Question'
+import { useDispatch } from 'react-redux'
+import { setScore } from '../store/game'
 
 /**
  * Renders a component that renders frames of questions, 
@@ -13,7 +15,6 @@ import Question from './Question'
  * components
  */
 export default function Game({ users, currentUser, setUsers }) {
-    const [score, setScore] = useState(0)
     const [frames, setFrames] = useState([])
     const [currentFrame, setCurrentFrame] = useState(0)
 
@@ -31,15 +32,12 @@ export default function Game({ users, currentUser, setUsers }) {
                         question={question.question}
                         position={i}
                         setCurrentFrame={setCurrentFrame}
-                        score={score}
-                        setScore={setScore}
                     />)
             })
 
         setFrames([
             ...questions,
             <ResultsFrame
-                score={score}
                 resetGame={resetGame}
                 setUsers={setUsers}
                 users={users}
@@ -50,8 +48,9 @@ export default function Game({ users, currentUser, setUsers }) {
         console.log(frames)
     }
 
+    const dispatch = useDispatch()
     function resetGame() {
-        setScore(0)
+        dispatch(setScore(0))
         setCurrentFrame(0)
         loadQuestions()
     }

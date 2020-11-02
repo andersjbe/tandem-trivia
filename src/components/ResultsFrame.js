@@ -1,9 +1,10 @@
 import { Button, Heading, List } from 'grommet'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
-export default function ResultsFrame({ score, resetGame, users, setUsers, currentUser }) {
+export default function ResultsFrame({ resetGame, users, setUsers, currentUser }) {
     const [leaderboard, setLeaderboard] = useState([])
-
+    const {score} = useSelector(state => state.game)
     useEffect(() => {
         //if the current user already has a score and it's less than the current score, set the user to the current score
         if (users[currentUser]) {
@@ -23,9 +24,9 @@ export default function ResultsFrame({ score, resetGame, users, setUsers, curren
             // Sorts the users by their score
             .sort((a, b) => {
                 if (a[1] < b[1]) {
-                    return -1
-                } else if (a[1] > b[1]) {
                     return 1
+                } else if (a[1] > b[1]) {
+                    return -1
                 } else {
                     return 0
                 }
